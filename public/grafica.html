@@ -26,9 +26,21 @@
         </div>
     </header>
 
+    <!-- Barra de búsqueda para filtrar tablas -->
+    <div id="filterContainer">
+        <label for="tableSelect">Seleccionar Tablas:</label>
+        <div class="dropdown">
+            <input type="text" id="tableSelect" placeholder="Seleccionar Tablas" readonly>
+            <div class="dropdown-content">
+                <!-- Opciones de tabla se agregarán dinámicamente -->
+            </div>
+        </div>
+        <button id="filterButton">Mostrar</button>
+    </div>
+
     <!-- Contenedor de las tablas y las gráficas -->
     <main>
-        <div id="contentContainer" style="display: flex; flex-wrap: wrap; justify-content: space-around; width: 80%; margin: auto;">
+        <div id="contentContainer">
             <!-- Las tablas y las gráficas se insertarán aquí -->
         </div>
     </main>

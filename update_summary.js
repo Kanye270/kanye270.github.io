@@ -3,19 +3,18 @@ const db = new sqlite3.Database('database.db');
 
 db.serialize(() => {
     const query = `
-        INSERT INTO monthly_summary (year, month, system, totalHours)
-        SELECT strftime('%Y', startDate) as year, strftime('%m', startDate) as month, system, SUM(durationMinutes) / 60.0 as totalHours
+        INSERT INTO monthly_summary (year, month, system, totalMinutes)
+        SELECT year, month, system, SUM(durationMinutes)
         FROM records
-        WHERE strftime('%Y-%m', startDate) = strftime('%Y-%m', 'now', 'start of month', '-1 month')
         GROUP BY year, month, system
+        ON CONFLICT(year, month, system) DO UPDATE SET totalMinutes=excluded.totalMinutes
     `;
-    db.run(query, function(err) {
+    db.run(query, [], function(err) {
         if (err) {
-            console.error(err.message);
+            console.error('Error updating summary:', err.message);
         } else {
-            console.log('Monthly summary updated successfully');
+            console.log('Summary updated successfully');
         }
+        db.close();
     });
 });
-
-db.close();

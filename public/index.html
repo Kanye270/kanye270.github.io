@@ -41,11 +41,17 @@
                 <!-- Mini Buscador -->
                 <div id="miniBuscador" style="padding: 10px; background-color: #f4f4f4; border-bottom: 1px solid #ccc; display: flex; gap: 10px;">
                     <label for="searchYear">Año:</label>
-                    <input type="text" id="searchYear" placeholder="Buscar Año">
+                    <input type="text" id="searchYear" placeholder="Buscar Año" list="yearOptions">
+                    <datalist id="yearOptions">
+                        <!-- Opciones de año se agregarán dinámicamente -->
+                    </datalist>
                     <label for="searchMonth">Mes:</label>
-                    <input type="text" id="searchMonth" placeholder="Buscar Mes">
+                    <input type="text" id="searchMonth" placeholder="Buscar Mes" list="monthOptions">
+                    <datalist id="monthOptions">
+                        <!-- Opciones de mes se agregarán dinámicamente -->
+                    </datalist>
                 </div>
-                <table id="infoTable">
+                <table id="infoTable" class="info-table">
                     <thead>
                         <tr>
                             <th>Fecha de inicio</th>

@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchRecords();
+    populateYearOptions();
+    populateMonthOptions();
     document.getElementById('searchYear').addEventListener('input', filterTable);
     document.getElementById('searchMonth').addEventListener('input', filterTable);
     document.getElementById('searchStartDate').addEventListener('input', filterTable);
@@ -7,22 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchEndDate').addEventListener('input', filterTable);
     document.getElementById('searchDurationMinutes').addEventListener('input', filterTable);
     document.getElementById('searchObservations').addEventListener('input', filterTable);
+    document.getElementById('editForm').addEventListener('submit', updateRecord);
 });
 
 function fetchRecords() {
     fetch('/api/records')
         .then(response => response.json())
         .then(data => {
-            // Ordenar los datos por startDate en orden ascendente
-            data.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = ''; // Limpiar el contenido existente
 
             data.forEach(record => {
                 const newRow = document.createElement('tr');
-                const hasNull = Object.values(record).some(value => value === null || value === 'null' || value === '');
-
                 newRow.innerHTML = `
                     <td>${record.startDate}</td>
                     <td>${record.system}</td>
@@ -33,13 +31,59 @@ function fetchRecords() {
                         <button class="edit-btn" onclick="editRecord(${record.id})"><i class="fas fa-pencil-alt"></i></button>
                         <button class="reflect-btn" onclick="reflectRecord(${record.id})"><i class="fas fa-memory"></i></button>
                         <button class="delete-btn" onclick="confirmDelete(${record.id})"><i class="fas fa-trash"></i></button>
-                        ${hasNull ? '<i class="fas fa-exclamation-circle warning-icon"></i>' : ''}
                     </td>
                 `;
                 tableBody.appendChild(newRow);
             });
         })
         .catch(error => console.error('Error fetching records:', error));
+}
+
+function confirmDelete(id) {
+    document.getElementById('confirmDeleteBtn').onclick = function() {
+        deleteRecord(id);
+    };
+    openDeleteModal();
+}
+
+function deleteRecord(id) {
+    fetch(`/api/records/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        fetchRecords(); // Refrescar la tabla
+        closeDeleteModal();
+    })
+    .catch(error => console.error('Error deleting record:', error));
+}
+
+function populateYearOptions() {
+    const yearOptions = document.getElementById('yearOptions');
+    yearOptions.innerHTML = ''; // Limpiar opciones existentes
+
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear - 5; year <= currentYear; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        yearOptions.appendChild(option);
+    }
+}
+
+function populateMonthOptions() {
+    const monthOptions = document.getElementById('monthOptions');
+    monthOptions.innerHTML = ''; // Limpiar opciones existentes
+
+    const months = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    months.forEach(month => {
+        const option = document.createElement('option');
+        option.value = month;
+        monthOptions.appendChild(option);
+    });
 }
 
 function reflectRecord(id) {
@@ -221,27 +265,6 @@ function updateRecord(event) {
     .catch(error => console.error('Error updating record:', error));
 }
 
-function confirmDelete(id) {
-    document.getElementById('confirmDeleteBtn').onclick = function() {
-        deleteRecord(id);
-    };
-    openDeleteModal();
-}
-
-function deleteRecord(id) {
-    fetch(`/api/records/${id}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.deleted) {
-            fetchRecords(); // Refrescar la tabla
-        }
-        closeDeleteModal();
-    })
-    .catch(error => console.error('Error deleting record:', error));
-}
-
 function openAddModal() {
     document.getElementById('addModal').style.display = 'block';
 }
@@ -265,5 +288,3 @@ function openDeleteModal() {
 function closeDeleteModal() {
     document.getElementById('deleteModal').style.display = 'none';
 }
-
-document.getElementById('editForm').addEventListener('submit', updateRecord);
