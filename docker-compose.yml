@@ -13,7 +13,7 @@ services:
       - db
 
   db:
-    image: mysql:5.7
+    image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1016945145
       MYSQL_DATABASE: database
