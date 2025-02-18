@@ -5,11 +5,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-<<<<<<< HEAD
       - DB_HOST=localhost
-=======
-      - DB_HOST=localhost:3306
->>>>>>> 55eb451f0c5f5b285751e47956ed76e144350cea
       - DB_USER=root
       - DB_PASSWORD=1016945145
       - DB_NAME=railway
@@ -18,7 +14,7 @@ services:
       - db
 
   db:
-    image: mysql
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: 1016945145
       MYSQL_DATABASE: railway

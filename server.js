@@ -1,27 +1,34 @@
+require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors({
+    origin: process.env.URLFRONTEND || 'http://localhost:3000/',
+    credentials: true,
+})); // Habilitar CORS
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+// Conectar a la base de datos MySQL
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'login',
+    port: process.env.DB_PORT || 3306,
 });
 
 db.connect((err) => {
     if (err) {
-        console.error('Error connecting to MySQL:', err);
+        console.error('Error conectando a la base de datos:', err);
         return;
     }
-    console.log('Connected to MySQL');
+    console.log('Conectado a MySQL');
 });
 
 // Función para convertir fechas al formato correcto
@@ -100,7 +107,7 @@ app.put('/api/records/:id', (req, res) => {
     const { year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    const query = `UPDATE records SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`system\` = ?, problem = ?, caseNumber = ?, incidentType = ?, contingencyAction = ?, endDate = ?, durationMinutes = ?, durationDays = ?, observations = ? WHERE id = ?`;
+    const query = `UPDATE records SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`system\` = ?, problem = ?, caseNumber = ?, incidentType = ?, contingencyAction = ?, endDate = ?, durationMinutes, durationDays, observations = ? WHERE id = ?`;
     db.query(query, [year, month, timestamp, email, formattedStartDate, system, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations, id], (err, result) => {
         if (err) {
             res.status(500).send(err);
