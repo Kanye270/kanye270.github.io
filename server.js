@@ -14,7 +14,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Conectar a la base de datos MySQL
+// Conectar a la base de datos MySQL usando DATABASE_URL
 const db = mysql.createConnection(process.env.DATABASE_URL);
 
 db.connect((err) => {
@@ -22,7 +22,7 @@ db.connect((err) => {
         console.error('Error conectando a la base de datos:', err);
         return;
     }
-    console.log('Conectado a MySQL');
+    console.log('Conectado a MySQL usando DATABASE_URL');
 });
 
 // Función para convertir fechas al formato correcto
