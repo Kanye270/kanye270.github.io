@@ -5,12 +5,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=localhost
-      - DB_USER=root
-      - DB_PASSWORD=1016945145
-      - DB_NAME=database
-      - DB_PORT=3306
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=mysql://root:TGmIksAkBTBPQxmNPhPsDdlUfBIGAsEk@hopper.proxy.rlwy.net:10204/railway
     depends_on:
       - db
 

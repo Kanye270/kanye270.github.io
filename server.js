@@ -17,15 +17,6 @@ app.use(express.static('public'));
 // Conectar a la base de datos MySQL
 const db = mysql.createConnection(process.env.DATABASE_URL);
 
-// Alternativamente, conectar a la base de datos MySQL usando variables de entorno individuales
-const dbAlt = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
-});
-
 db.connect((err) => {
     if (err) {
         console.error('Error conectando a la base de datos:', err);
