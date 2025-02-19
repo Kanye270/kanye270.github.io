@@ -3,11 +3,11 @@ const db = new sqlite3.Database('database.db');
 
 db.serialize(() => {
     const query = `
-        INSERT INTO monthly_summary (year, month, system, totalMinutes)
-        SELECT year, month, system, SUM(durationMinutes)
-        FROM records
-        GROUP BY year, month, system
-        ON CONFLICT(year, month, system) DO UPDATE SET totalMinutes=excluded.totalMinutes
+        INSERT INTO monthly_summary (year, month, systema, totalMinutes)
+        SELECT year, month, systema, SUM(durationMinutes)
+        FROM railway
+        GROUP BY year, month, systema
+        ON CONFLICT(year, month, systema) DO UPDATE SET totalMinutes=excluded.totalMinutes
     `;
     db.run(query, [], function(err) {
         if (err) {

@@ -17,6 +17,15 @@ app.use(express.static('public'));
 // Conectar a la base de datos MySQL
 const db = mysql.createConnection(process.env.DATABASE_URL);
 
+// Alternativamente, conectar a la base de datos MySQL usando variables de entorno individuales
+const dbAlt = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+});
+
 db.connect((err) => {
     if (err) {
         console.error('Error conectando a la base de datos:', err);
@@ -34,8 +43,8 @@ function formatDate(dateString) {
 // Ruta para obtener los datos agrupados por sistema, mes y año
 app.get('/api/datos', (req, res) => {
     const query = `
-        SELECT \`system\` as sistema, SUM(durationMinutes) as minutos, month, year
-        FROM records
+        SELECT \`systema\` as sistema, SUM(durationMinutes) as minutos, month, year
+        FROM railway
         GROUP BY sistema, month, year
         ORDER BY year, month
     `;
@@ -56,7 +65,7 @@ app.get('/', (req, res) => {
 
 // Obtener todos los registros
 app.get('/api/records', (req, res) => {
-    db.query('SELECT * FROM records', (err, rows) => {
+    db.query('SELECT * FROM railway', (err, rows) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -69,7 +78,7 @@ app.get('/api/records', (req, res) => {
 // Obtener un registro por ID
 app.get('/api/records/:id', (req, res) => {
     const { id } = req.params;
-    db.query('SELECT * FROM records WHERE id = ?', [id], (err, row) => {
+    db.query('SELECT * FROM railway WHERE id = ?', [id], (err, row) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -81,11 +90,11 @@ app.get('/api/records/:id', (req, res) => {
 
 // Agregar un nuevo registro
 app.post('/api/records', (req, res) => {
-    const { year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
+    const { year, month, timestamp, email, startDate, systema, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    const query = `INSERT INTO records (year, month, timestamp, email, startDate, \`system\`, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    db.query(query, [year, month, timestamp, email, formattedStartDate, system, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations], (err, result) => {
+    const query = `INSERT INTO railway (year, month, timestamp, email, startDate, \`systema\`, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    db.query(query, [year, month, timestamp, email, formattedStartDate, systema, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations], (err, result) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -98,11 +107,11 @@ app.post('/api/records', (req, res) => {
 // Actualizar un registro existente
 app.put('/api/records/:id', (req, res) => {
     const { id } = req.params;
-    const { year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
+    const { year, month, timestamp, email, startDate, systema, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    const query = `UPDATE records SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`system\` = ?, problem = ?, caseNumber, incidentType, contingencyAction, endDate = ?, durationMinutes = ?, durationDays = ?, observations = ? WHERE id = ?`;
-    db.query(query, [year, month, timestamp, email, formattedStartDate, system, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations, id], (err, result) => {
+    const query = `UPDATE railway SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`systema\` = ?, problem = ?, caseNumber, incidentType, contingencyAction, endDate = ?, durationMinutes = ?, durationDays = ?, observations = ? WHERE id = ?`;
+    db.query(query, [year, month, timestamp, email, formattedStartDate, systema, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations, id], (err, result) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -115,7 +124,7 @@ app.put('/api/records/:id', (req, res) => {
 // Eliminar un registro
 app.delete('/api/records/:id', (req, res) => {
     const { id } = req.params;
-    db.query('DELETE FROM records WHERE id = ?', [id], (err, result) => {
+    db.query('DELETE FROM railway WHERE id = ?', [id], (err, result) => {
         if (err) {
             res.status(500).send(err);
         } else {
