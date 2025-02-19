@@ -15,13 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Conectar a la base de datos MySQL
-const db = mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'login',
-    port: process.env.DB_PORT || 3306,
-});
+const db = mysql.createConnection(process.env.DATABASE_URL);
 
 db.connect((err) => {
     if (err) {
@@ -107,7 +101,7 @@ app.put('/api/records/:id', (req, res) => {
     const { year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations } = req.body;
     const formattedStartDate = formatDate(startDate);
     const formattedEndDate = formatDate(endDate);
-    const query = `UPDATE records SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`system\` = ?, problem = ?, caseNumber = ?, incidentType = ?, contingencyAction = ?, endDate = ?, durationMinutes, durationDays, observations = ? WHERE id = ?`;
+    const query = `UPDATE records SET year = ?, month = ?, timestamp = ?, email = ?, startDate = ?, \`system\` = ?, problem = ?, caseNumber, incidentType, contingencyAction, endDate = ?, durationMinutes = ?, durationDays = ?, observations = ? WHERE id = ?`;
     db.query(query, [year, month, timestamp, email, formattedStartDate, system, problem, caseNumber, incidentType, contingencyAction, formattedEndDate, durationMinutes, durationDays, observations, id], (err, result) => {
         if (err) {
             res.status(500).send(err);
