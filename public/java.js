@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchYear').addEventListener('input', filterTable);
     document.getElementById('searchMonth').addEventListener('input', filterTable);
     document.getElementById('searchStartDate').addEventListener('input', filterTable);
-    document.getElementById('searchSystem').addEventListener('input', filterTable);
+    document.getElementById('searchSystema').addEventListener('input', filterTable);
     document.getElementById('searchEndDate').addEventListener('input', filterTable);
     document.getElementById('searchDurationMinutes').addEventListener('input', filterTable);
     document.getElementById('searchObservations').addEventListener('input', filterTable);
@@ -23,7 +23,7 @@ function fetchRecords() {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${record.startDate}</td>
-                    <td>${record.system}</td>
+                    <td>${record.systema}</td>
                     <td>${record.endDate}</td>
                     <td>${record.durationMinutes}</td>
                     <td>${record.observations}</td>
@@ -97,7 +97,7 @@ function reflectRecord(id) {
                 <p><strong>Marca temporal:</strong> ${record.timestamp}</p>
                 <p><strong>Correo electrónico:</strong> ${record.email}</p>
                 <p><strong>Fecha de inicio:</strong> ${record.startDate}</p>
-                <p><strong>Sistema afectado:</strong> ${record.system}</p>
+                <p><strong>Sistema afectado:</strong> ${record.systema}</p>
                 <p><strong>Problema:</strong> ${record.problem}</p>
                 <p><strong>Número de caso:</strong> ${record.caseNumber}</p>
                 <p><strong>Tipo de incidente:</strong> ${record.incidentType}</p>
@@ -124,7 +124,7 @@ function filterTable() {
     const searchYear = document.getElementById('searchYear').value.toLowerCase();
     const searchMonth = document.getElementById('searchMonth').value.toLowerCase();
     const searchStartDate = document.getElementById('searchStartDate').value.toLowerCase();
-    const searchSystem = document.getElementById('searchSystem').value.toLowerCase();
+    const searchSystema = document.getElementById('searchSystema').value.toLowerCase();
     const searchEndDate = document.getElementById('searchEndDate').value.toLowerCase();
     const searchDurationMinutes = document.getElementById('searchDurationMinutes').value.toLowerCase();
     const searchObservations = document.getElementById('searchObservations').value.toLowerCase();
@@ -134,13 +134,13 @@ function filterTable() {
     for (let i = 2; i < rows.length; i++) { // Comienza en 2 para omitir las filas de encabezado
         const cells = rows[i].getElementsByTagName('td');
         const startDate = cells[0].innerText.toLowerCase();
-        const system = cells[1].innerText.toLowerCase();
+        const systema = cells[1].innerText.toLowerCase();
         const endDate = cells[2].innerText.toLowerCase();
         const durationMinutes = cells[3].innerText.toLowerCase();
         const observations = cells[4].innerText.toLowerCase();
 
         const match = startDate.includes(searchStartDate) &&
-                      system.includes(searchSystem) &&
+                      systema.includes(searchSystema) &&
                       endDate.includes(searchEndDate) &&
                       durationMinutes.includes(searchDurationMinutes) &&
                       observations.includes(searchObservations) &&
@@ -159,7 +159,7 @@ function addRecord(event) {
     const timestamp = document.getElementById("timestamp").value;
     const email = document.getElementById("email").value;
     const startDate = document.getElementById("startDate").value;
-    const system = document.getElementById("system").value;
+    const systema = document.getElementById("systema").value;
     const problem = document.getElementById("problem").value;
     const caseNumber = document.getElementById("caseNumber").value;
     const incidentType = document.getElementById("incidentType").value;
@@ -176,7 +176,7 @@ function addRecord(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations
+            year, month, timestamp, email, startDate, systema, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations
         })
     })
     .then(response => response.json())
@@ -187,7 +187,7 @@ function addRecord(event) {
 
         newRow.innerHTML = `
             <td>${startDate}</td>
-            <td>${system}</td>
+            <td>${systema}</td>
             <td>${endDate}</td>
             <td>${durationMinutes}</td>
             <td>${observations}</td>
@@ -215,7 +215,7 @@ function editRecord(id) {
             document.getElementById('editTimestamp').value = record.timestamp;
             document.getElementById('editEmail').value = record.email;
             document.getElementById('editStartDate').value = record.startDate;
-            document.getElementById('editSystem').value = record.system;
+            document.getElementById('editSystema').value = record.systema;
             document.getElementById('editProblem').value = record.problem;
             document.getElementById('editCaseNumber').value = record.caseNumber;
             document.getElementById('editIncidentType').value = record.incidentType;
@@ -238,7 +238,7 @@ function updateRecord(event) {
     const timestamp = document.getElementById('editTimestamp').value;
     const email = document.getElementById('editEmail').value;
     const startDate = document.getElementById('editStartDate').value;
-    const system = document.getElementById('editSystem').value;
+    const systema = document.getElementById('editSystema').value;
     const problem = document.getElementById('editProblem').value;
     const caseNumber = document.getElementById('editCaseNumber').value;
     const incidentType = document.getElementById('editIncidentType').value;
@@ -254,7 +254,7 @@ function updateRecord(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            year, month, timestamp, email, startDate, system, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations
+            year, month, timestamp, email, startDate, systema, problem, caseNumber, incidentType, contingencyAction, endDate, durationMinutes, durationDays, observations
         })
     })
     .then(response => response.json())

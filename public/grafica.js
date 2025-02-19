@@ -53,8 +53,8 @@ function fetchRecords() {
                     }, {});
                 }
 
-                let systemKey = systems.find(system => record.system.toLowerCase() === system.toLowerCase());
-                if (!systemKey && record.system.toLowerCase().includes('linea medica')) {
+                let systemKey = systems.find(system => record.systema.toLowerCase() === system.toLowerCase());
+                if (!systemKey && record.systema.toLowerCase().includes('linea medica')) {
                     systemKey = 'linea medica';
                 }
 
