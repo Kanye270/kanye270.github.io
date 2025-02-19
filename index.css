@@ -1,0 +1,613 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400; /* Para párrafos normales */
+}
+
+/* Encabezado */
+header {
+    background: #088c44;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Roboto Condensed', sans-serif;
+    position: relative;
+    z-index: 1001; /* Asegurar que el encabezado esté por encima de otros elementos */
+}
+
+header h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    order: 1;
+    font-weight: 700; /* Para títulos más gruesos */
+    font-size: 24px; /* Tamaño de fuente consistente */
+}
+
+.submenu {
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.logo img {
+    height: 50px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+/* Submenú */
+.submenu {
+    position: relative;
+    display: inline-block;
+    order: 0;
+}
+
+.submenu-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.submenu-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1002; /* Asegurar que el submenú esté por encima de otros elementos */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.submenu-content .semi-medium-btn {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: #fff;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.submenu-content .semi-medium-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.submenu:hover .submenu-content {
+    display: block;
+}
+
+/* Contenedor principal */
+main {
+    display: flex;
+    padding: 20px;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
+}
+
+thead {
+    background: #f8cc44;
+    color: #fff;
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+    font-size: 16px; /* Tamaño de fuente consistente */
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+tbody tr:hover {
+    background: #f1f1f1;
+    word-wrap: break-word;
+}
+
+tbody td {
+    padding: 10px;
+    text-align: left;
+    word-wrap: break-word;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+/* Estilos para las barras de búsqueda */
+#infoTable input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+    background-color: #fff;
+}
+
+#infoTable {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la tabla */
+    background-color: #fff; /* Fondo blanco para la tabla */
+    max-height: 600px; /* Altura máxima de la tabla */
+    overflow-y: auto; /* Scroll vertical si es necesario */
+    overflow-x: auto; /* Scroll horizontal si es necesario */
+}
+
+#infoTable th, #infoTable td {
+    border: none;
+    padding: 8px;
+}
+
+#infoTable th {
+    background-color: #f8cc44;
+    color: #333;
+    text-align: left;
+    font-size: 16px; 
+}
+
+#infoTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#infoTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos para las casillas de búsqueda */
+#searchYear, #searchMonth {
+    width: 10%;
+    padding: 5px; /* Mantener el padding existente */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px; /* Mantener el margen inferior existente */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna para las casillas */
+    background-color: #fff; /* Fondo blanco para las casillas */
+}
+
+/* Estilos para los botones de editar y borrar */
+.edit-btn, .delete-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 1% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px; /* Tamaño de fuente consistente */
+}
+
+.modal-header .close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-header .close:hover,
+.modal-header .close:focus {
+    color: red;
+}
+
+.modal-footer {
+    padding-top: 10px;
+    text-align: right;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    font-size: 16px; /* Tamaño de fuente consistente */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para organizar los campos en varias columnas */
+.modal-content form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Reducir el espacio entre los campos */
+    height: calc(100% - 60px); /* Ajustar la altura del formulario */
+    overflow-y: auto; /* Habilitar el desplazamiento vertical dentro del formulario */
+}
+
+.form-group.small {
+    flex: 1 1 30%; /* Ajustar el tamaño de las casillas pequeñas */
+}
+
+.form-group.large {
+    flex: 1 1 100%; /* Ajustar el tamaño de las casillas grandes */
+}
+
+/* Estilos para el encabezado de la tabla */
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.table-header h2 {
+    font-size: 20px; /* Tamaño de fuente consistente */
+}
+
+/* Estilos para el botón de agregar */
+.add-button-container {
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    background-color: #088c44;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #066c33;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    table {
+        font-size: 100px;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+/*icono rojo*/
+.warning-icon {
+    color: red;
+    animation: blink 1s infinite;
+    margin-right: 5px;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/*estilo boton reflejar*/
+.reflect-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+.reflect-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el contenedor de filtro y el botón */
+#filterContainer {
+    display: flex;
+    align-items: center; 
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#filterContainer label {
+    margin-right: 10px;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#tableSelect {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; /* Asegurar que el submenú de selección esté por encima de otros elementos */
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#filterButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px; /* Ajustar el tamaño vertical del botón */
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+#filterButton:hover {
+    background-color: #0056b3;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+#contentContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.content-item {
+    width: 100%;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 20px;
+    position: relative; /* Para posicionar el botón de cerrar */
+}
+
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: auto;
+}
+
+.pie-and-table-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+canvas {
+    width: 48% !important;
+    height: 350px !important; /* Ajustar el tamaño de las gráficas */
+}
+
+.table-container {
+    width: 48%; /* Ajustar el tamaño de la tabla */
+    overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
+}
+
+.data-table th, .data-table td {
+    padding: 10px;
+    text-align: left;
+    word-wrap: break-word;
+    font-size: 14px; /* Tamaño de fuente consistente */
+}
+
+.data-table th {
+    background: #f8cc44;
+    color: #fff;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.separator {
+    display: none; /* Ocultar las barras de separación */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .chart-container {
+        flex-direction: column;
+    }
+
+    .pie-and-table-container {
+        flex-direction: column;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: 350px !important;
+    }
+
+    .data-table {
+        font-size: 14px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
+    }
+}

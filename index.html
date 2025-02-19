@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tabla adaptable para guardar y modificar información">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="submenu">
+            <button class="submenu-btn"><i class="fas fa-bars"></i></button>
+            <div class="submenu-content">
+                <a href="index.html" class="semi-medium-btn"><i class="fas fa-pencil-alt"></i> Formularios</a>
+                <a href="grafica.html" class="semi-medium-btn"><i class="fas fa-chart-bar"></i> Gráfica</a>
+            </div>
+        </div>
+        <h1>Incidencias de sistemas</h1>
+        <div class="logo">
+            <img src="imagenes/LOGO sin fondo.png" alt="Logo">
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <main>
+        <div class="sidebar">
+            <div class="header-buttons">
+                <!-- Botones movidos al submenú -->
+            </div>
+        </div>
+        <div class="main-content">
+            <section>
+                <div class="table-header">
+                    <h2>Tabla de Información</h2>
+                    <button class="add-btn" onclick="openAddModal()">Agregar</button>
+                </div>
+                <!-- Mini Buscador -->
+                <div id="miniBuscador" style="padding: 10px; background-color: #f4f4f4; border-bottom: 1px solid #ccc; display: flex; gap: 10px;">
+                    <label for="searchYear">Año:</label>
+                    <input type="text" id="searchYear" placeholder="Buscar Año" list="yearOptions">
+                    <datalist id="yearOptions">
+                        <!-- Opciones de año se agregarán dinámicamente -->
+                    </datalist>
+                    <label for="searchMonth">Mes:</label>
+                    <input type="text" id="searchMonth" placeholder="Buscar Mes" list="monthOptions">
+                    <datalist id="monthOptions">
+                        <!-- Opciones de mes se agregarán dinámicamente -->
+                    </datalist>
+                </div>
+                <table id="infoTable" class="info-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha de inicio</th>
+                            <th>Sistema afectado</th>
+                            <th>Fecha de cierre</th>
+                            <th>Duración en minutos</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tr>
+                            <th><input type="text" id="searchStartDate" placeholder="Buscar Fecha de inicio"></th>
+                            <th>
+                                <input type="text" id="searchSystema" placeholder="Buscar Sistema afectado" list="searchSystemaOptions">
+                                <datalist id="searchSystemaOptions">
+                                    <option value="autorizaciones web">
+                                    <option value="click">
+                                    <option value="imagine">
+                                    <option value="infobip">
+                                    <option value="linea medica">
+                                    <option value="pc">
+                                    <option value="pure cloud">
+                                    <option value="red">
+                                    <option value="simón">
+                                    <option value="sisalud salud">
+                                    <option value="tronador">
+                                </datalist>
+                            </th>
+                            <th><input type="text" id="searchEndDate" placeholder="Buscar Fecha de cierre"></th>
+                            <th><input type="text" id="searchDurationMinutes" placeholder="Buscar Duración en minutos"></th>
+                            <th><input type="text" id="searchObservations" placeholder="Buscar Observaciones"></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Las filas de datos se insertarán aquí -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+
+    <!-- Modal para agregar información -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeAddModal()">&times;</span>
+                <h2>Agregar Información</h2>
+            </div>
+            <form id="addForm" onsubmit="addRecord(event)">
+                <div class="form-group small">
+                    <label for="year">Año:</label>
+                    <input type="text" id="year" name="year" required>
+                </div>
+                <div class="form-group small">
+                    <label for="month">Mes:</label>
+                    <input type="text" id="month" name="month" required>
+                </div>
+                <div class="form-group small">
+                    <label for="timestamp">Marca temporal:</label>
+                    <input type="text" id="timestamp" name="timestamp" required>
+                </div>
+                <div class="form-group small">
+                    <label for="email">Dirección de correo electrónico:</label>
+                    <input list="emailOptions" id="email" name="email" required>
+                    <datalist id="emailOptions">
+                        <option value="johana.cuervo@segurosbolivar.com">
+                        <option value="ewein.ruiz@segurosbolivar.com">
+                        <option value="maiby.moreno@segurosbolivar.com">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="startDate">Fecha de inicio:</label>
+                    <input type="datetime-local" id="startDate" name="startDate" required>
+                </div>
+                <div class="form-group small">
+                    <label for="systema">Sistema afectado:</label>
+                    <input list="systemaOptions" id="systema" name="systema" required>
+                    <datalist id="systemaOptions">
+                        <option value="autorizaciones web">
+                        <option value="infobip">
+                        <option value="imagine">
+                        <option value="pure cloud">
+                        <option value="linea medica web ARL">
+                        <option value="linea medica web salud-escolares">
+                        <option value="linea medica web salud-Escolares, Linea medica web ARL">
+                        <option value="Sisalud salud, sisalud ARL">
+                        <option value="sisalud ARL, Tronador, Linea medica web">
+                        <option value="red/Internet">
+                        <option value="tronador web">
+                        <option value="paginas seguros bolivar">
+                        <option value="internet">
+                        <option value="correo">
+                        <option value="PC">
+                        <option value="simon">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="problem">Problema:</label>
+                    <input list="problemOptions" id="problem" name="problem" required>
+                    <datalist id="problemOptions">
+                        <option value="Problema 1">
+                        <option value="Problema 2">
+                        <option value="Problema 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="caseNumber">Número de caso:</label>
+                    <input type="text" id="caseNumber" name="caseNumber" required>
+                </div>
+                <div class="form-group small">
+                    <label for="incidentType">Tipo de incidente:</label>
+                    <input list="incidentTypeOptions" id="incidentType" name="incidentType" required>
+                    <datalist id="incidentTypeOptions">
+                        <option value="Incidente 1">
+                        <option value="Incidente 2">
+                        <option value="Incidente 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="contingencyAction">Acción de contingencia:</label>
+                    <input list="contingencyActionOptions" id="contingencyAction" name="contingencyAction" required>
+                    <datalist id="contingencyActionOptions">
+                        <option value="Acción 1">
+                        <option value="Acción 2">
+                        <option value="Acción 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="endDate">Fecha de cierre:</label>
+                    <input type="datetime-local" id="endDate" name="endDate" required>
+                </div>
+                <div class="form-group small">
+                    <label for="durationMinutes">Duración en minutos:</label>
+                    <input type="number" id="durationMinutes" name="durationMinutes" required>
+                </div>
+                <div class="form-group small">
+                    <label for="durationDays">Duración en días:</label>
+                    <input type="number" id="durationDays" name="durationDays" required>
+                </div>
+                <div class="form-group small">
+                    <label for="observations">Observaciones:</label>
+                    <textarea id="observations" name="observations" required></textarea>
+                </div>
+                <button type="submit">Guardar</button>
+            </form>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Modal para editar información -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <h2>Editar Información</h2>
+            </div>
+            <form id="editForm" onsubmit="updateRecord(event)">
+                <input type="hidden" id="editId" name="editId">
+                <div class="form-group small">
+                    <label for="editYear">Año:</label>
+                    <input type="text" id="editYear" name="editYear" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editMonth">Mes:</label>
+                    <input type="text" id="editMonth" name="editMonth" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editTimestamp">Marca temporal:</label>
+                    <input type="text" id="editTimestamp" name="editTimestamp" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editEmail">Dirección de correo electrónico:</label>
+                    <input list="editEmailOptions" id="editEmail" name="editEmail" required>
+                    <datalist id="editEmailOptions">
+                        <option value="johana.cuervo@segurosbolivar.com">
+                        <option value="ewein.ruiz@segurosbolivar.com">
+                        <option value="maiby.moreno@segurosbolivar.com">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="editStartDate">Fecha de inicio:</label>
+                    <input type="datetime-local" id="editStartDate" name="editStartDate" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editSystema">Sistema afectado:</label>
+                    <input list="editSystemaOptions" id="editSystema" name="editSystema" required>
+                    <datalist id="editSystemaOptions">
+                        <option value="autorizaciones web">
+                        <option value="infobip">
+                        <option value="imagine">
+                        <option value="pure cloud">
+                        <option value="linea medica web ARL">
+                        <option value="linea medica web salud-escolares">
+                        <option value="linea medica web salud-Escolares, Linea medica web ARL">
+                        <option value="Sisalud salud, sisalud ARL">
+                        <option value="sisalud ARL, Tronador, Linea medica web">
+                        <option value="red/Internet">
+                        <option value="tronador web">
+                        <option value="paginas seguros bolivar">
+                        <option value="internet">
+                        <option value="correo">
+                        <option value="PC">
+                        <option value="simon">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="editProblem">Problema:</label>
+                    <input list="editProblemOptions" id="editProblem" name="editProblem" required>
+                    <datalist id="editProblemOptions">
+                        <option value="Problema 1">
+                        <option value="Problema 2">
+                        <option value="Problema 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="editCaseNumber">Número de caso:</label>
+                    <input type="text" id="editCaseNumber" name="editCaseNumber" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editIncidentType">Tipo de incidente:</label>
+                    <input list="editIncidentTypeOptions" id="editIncidentType" name="editIncidentType" required>
+                    <datalist id="editIncidentTypeOptions">
+                        <option value="Incidente 1">
+                        <option value="Incidente 2">
+                        <option value="Incidente 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="editContingencyAction">Acción de contingencia:</label>
+                    <input list="editContingencyActionOptions" id="editContingencyAction" name="editContingencyAction" required>
+                    <datalist id="editContingencyActionOptions">
+                        <option value="Acción 1">
+                        <option value="Acción 2">
+                        <option value="Acción 3">
+                    </datalist>
+                </div>
+                <div class="form-group small">
+                    <label for="editEndDate">Fecha de cierre:</label>
+                    <input type="datetime-local" id="editEndDate" name="editEndDate" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editDurationMinutes">Duración en minutos:</label>
+                    <input type="number" id="editDurationMinutes" name="editDurationMinutes" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editDurationDays">Duración en días:</label>
+                    <input type="number" id="editDurationDays" name="editDurationDays" required>
+                </div>
+                <div class="form-group small">
+                    <label for="editObservations">Observaciones:</label>
+                    <textarea id="editObservations" name="editObservations" required></textarea>
+                </div>
+                <button type="submit">Guardar</button>
+            </form>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Modal para reflejar información -->
+    <div id="reflectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeReflectModal()">&times;</span>
+                <h2>Datos Guardados</h2>
+            </div>
+            <div class="modal-body" id="reflectModalBody">
+            <!-- Los datos se insertarán aquí -->
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmar eliminación -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Estás seguro de que deseas eliminar este registro?</p>
+            <button id="confirmDeleteBtn">Eliminar</button>
+            <button onclick="closeDeleteModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="java.js"></script>
+</body>
+</html>
